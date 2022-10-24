@@ -35,20 +35,21 @@
                             </a>
                             <br>
 
-                            <!-- IF the photo has location -->
-                            <span>Bansko, Bulgaria</span>
+                            {% if photo.location %}
+                            <span>{{ photo.location }}</span>
+                            {% endif %}
 
                             <!-- IF the viewer is the creator of the photo -->
                             <div class="edit-delete-btns">
 
                                 <!-- Link to Edit Pet Photo Page -->
-                                <a href="{% url 'pet edit' username='pesho' pet_name='gosho' %}">
+                                <a href="{% url 'edit photo' pk=photo.pk %}">
                                     <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg'%}"
                                          alt="edit button">
                                 </a>
 
                                 <!-- Link to Delete Pet Photo Page -->
-                                <a href="{% url 'pet edit' username='pesho' pet_name='gosho' %}">
+                                <a href="{% url 'delete photo' pk=photo.pk %}">
                                     <img class="bin-img" src="{% static 'images/icon-remove-22.jpg'%}" alt="bin button">
                                 </a>
                             </div>
@@ -63,7 +64,7 @@
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id={{ photo.id }}>
                     <!-- Pet Photo -->
-                    <img src="{% static 'images/axolotl.jpeg' %}" alt="post" class="cover">
+                    <img src="{{ photo.photo.url }}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 
@@ -125,7 +126,7 @@
                             <!-- Start Share  Button -->
 
                             <!-- Link to Share Path -->
-                            <a href="#">
+                            <a href="{% url 'share link' photo_id=photo.pk %}">
                                 <svg aria-label="Share Post" class="_8-yf5 " color="#262626" fill="#262626"
                                      height="24" role="img" viewBox="0 0 48 48" width="24">
                                     <path d="M47.8 3.8c-.3-.5-.8-.8-1.3-.8h-45C.9 3.1.3
@@ -146,18 +147,28 @@
 
                     <!-- Start Tagged Pets Section-->
                     <!-- Link to First Tagged Pet Details Page -->
-                    <a href="#">
-                        <p class="message">
-                            <b>Sasho</b>
-                        </p>
-                    </a>
-                    <!-- Link to Second Tagged Pet Details Page -->
-                    <a href="#">
-                        <p class="message">
-                            <b>Some other fish</b>
-                        </p>
-                    </a>
-                    <!-- End Tagged Pets Section-->
+{#     TODO check if this works properly- it doesn't             #}
+{#                    {% for pet in tagged_pets_set %}#}
+{##}
+{#                    <a href="{% url 'user profile' pk=pet.pk %}">#}
+{#                        <p class="message">#}
+{#                            <b>pet.name</b>#}
+{#                        </p>#}
+{#                    </a>#}
+{#                    {% endfor %}#}
+
+{#                    <a href="#">#}
+{#                        <p class="message">#}
+{#                            <b>Sasho</b>#}
+{#                        </p>#}
+{#                    </a>#}
+{#                    <!-- Link to Second Tagged Pet Details Page -->#}
+{#                    <a href="#">#}
+{#                        <p class="message">#}
+{#                            <b>Some other fish</b>#}
+{#                        </p>#}
+{#                    </a>#}
+{#                    <!-- End Tagged Pets Section-->#}
 
                     <!-- Date of Publication or edit of the Photo -->
                     <h5 class="postTime">19/09/2022</h5>
