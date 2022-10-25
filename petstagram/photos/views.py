@@ -75,3 +75,6 @@ def photo_delete(request, pk):
     }
     return redirect('index')
     # return render(request, 'photos/photo-details-page.html', context)
+
+# TODO Add comment view and functionality
+

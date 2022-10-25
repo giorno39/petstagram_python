@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from petstagram.common.forms import CommentForm
 from petstagram.pets.forms import AddPetForm, EditPetForm, DeletePetForm
 from petstagram.pets.models import Pet
+from petstagram.photos.models import Photo
 
 
 def add_pet(request):
@@ -45,9 +47,11 @@ def delete_pet(request, username, pet_name):
 def details_pet(request, username, pet_name):
     pet = Pet.objects.get(slug=pet_name)
     all_photos = pet.photo_set.all()
+    comment_form = CommentForm()
     context = {
         'pet': pet,
         'all_photos': all_photos,
+        'comment_form': comment_form,
     }
     return render(request, 'pets/pet-details-page.html', context)
 
@@ -68,3 +72,14 @@ def edit_pet(request, username, pet_name):
         'pet_slug': pet_name,
     }
     return render(request, 'pets/pet-edit-page.html', context)
+
+
+# def add_comment(request, photo_id):
+#     form = CommentForm(request.POST)
+#     photo = Photo.objects.filter(id=photo_id).get() #possibly pk=photo_id
+#     if form.is_valid():
+#         comment = form.save(commit=False)
+#         comment.to_photo = photo
+#         comment.save()
+#
+#     return redirect('index')
